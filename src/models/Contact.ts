@@ -30,9 +30,6 @@ class Contacts {
   phone: string;
 
   @Column()
-  avatar: string;
-
-  @Column()
   created_at: Date;
 
   @Column()
