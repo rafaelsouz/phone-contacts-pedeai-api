@@ -10,6 +10,7 @@ const contactsRouter = Router();
 
 contactsRouter.use(ensureAuthenticated);
 
+// Listagem de contatos
 contactsRouter.get('/', async (req, res) => {
   const listContacts = new ListContactsService();
 
@@ -18,6 +19,7 @@ contactsRouter.get('/', async (req, res) => {
   return res.json(contacts);
 });
 
+// Criação um contato
 contactsRouter.post('/', async (req, res) => {
   const { name, email, phone, user_id } = req.body;
 
@@ -28,6 +30,7 @@ contactsRouter.post('/', async (req, res) => {
   return res.json(contact);
 });
 
+// Edição um contato
 contactsRouter.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { name, email, phone } = req.body;
