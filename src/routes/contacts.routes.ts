@@ -2,8 +2,17 @@ import { Router } from 'express';
 
 import CreateContactService from '../services/CreateContactService';
 import UpdateContactService from '../services/UpdateContactService';
+import ListContactsService from '../services/ListContactsService';
 
 const contactsRouter = Router();
+
+contactsRouter.get('/', async (req, res) => {
+  const listContacts = new ListContactsService();
+
+  const contacts = await listContacts.execute();
+
+  return res.json(contacts);
+});
 
 contactsRouter.post('/', async (req, res) => {
   const { name, email, phone, user_id } = req.body;
@@ -25,4 +34,5 @@ contactsRouter.put('/:id', async (req, res) => {
 
   return res.json(contact);
 });
+
 export default contactsRouter;
