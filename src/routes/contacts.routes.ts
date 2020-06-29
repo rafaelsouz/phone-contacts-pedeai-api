@@ -4,7 +4,11 @@ import CreateContactService from '../services/CreateContactService';
 import UpdateContactService from '../services/UpdateContactService';
 import ListContactsService from '../services/ListContactsService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const contactsRouter = Router();
+
+contactsRouter.use(ensureAuthenticated);
 
 contactsRouter.get('/', async (req, res) => {
   const listContacts = new ListContactsService();
