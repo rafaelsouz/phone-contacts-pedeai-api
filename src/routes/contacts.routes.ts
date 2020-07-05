@@ -3,6 +3,7 @@ import { Router } from 'express';
 import CreateContactService from '../services/CreateContactService';
 import UpdateContactService from '../services/UpdateContactService';
 import ListContactsService from '../services/ListContactsService';
+import FindContactService from '../services/FindContactService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
@@ -14,7 +15,21 @@ contactsRouter.use(ensureAuthenticated);
 contactsRouter.get('/', async (req, res) => {
   const listContacts = new ListContactsService();
 
-  const contacts = await listContacts.execute();
+  const userId = req.user.id;
+
+  const contacts = await listContacts.execute(userId);
+
+  return res.json(contacts);
+});
+
+// Encontra um contato
+contactsRouter.get('/:id', async (req, res) => {
+  const findContacts = new FindContactService();
+
+  const user_id = req.user.id;
+  const { id } = req.params;
+
+  const contacts = await findContacts.execute({ user_id, id });
 
   return res.json(contacts);
 });
